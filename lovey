@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAVU..</title>
+<style>
+    body {
+        font-family: 'Courier New', monospace;
+        background-color: #000; /* Black background */
+        color: #fff; /* White text */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        text-align: center;
+    }
+    .question {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .buttons {
+        margin: 10px 0;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 0 10px;
+        cursor: pointer;
+        background-color: #333; /* Dark grey background for buttons */
+        color: #fff; /* White text for buttons */
+        border: none;
+        border-radius: 4px;
+    }
+    .message {
+        margin-top: 20px;
+        font-size: 15px;
+        max-width: 600px;
+        margin: auto;
+        text-align: left;
+        white-space: pre-wrap;
+        visibility: hidden;
+    }
+    .compliment {
+        margin: 5px 0;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="question">wanna know why i love you?</div>
+    <div class="buttons">
+        <button onclick="showMessage()">Yes</button>
+        <button id="noButton" onclick="moveButton()">No</button>
+    </div>
+    <div class="message" id="responseMessage"></div>
+</div>
+
+<script>
+const compliments = [
+    "well, i don't really know. all i know is im happy with you, when we first started talking I felt something. like a spark yk.",
+    "and everytime we talk, all i felt was happiness. i know we started too fast, but who cares? i don't care what anybody else think, all i know is i love talking to you, having you with me by my side, i love seeing you smile, and laugh knowing I'm the reason behind it.",
+    "i don't know why i love you, but I'm me when im with you, i can be who i am with you without judgement.",
+    "with you, i feel safe and comfortable. it feels like home with you.",
+    "idk why i love you, but your sense of humor is just yk hehe you're funny and i love it. you make me laugh even on the toughest days.",
+    "idk why i love you, but i must say you are intelligent. I learned something new from our conversations. you're amazing:D",
+    "idk why i love you, you make me feel heard and understood on times when i don't even understand myself",
+    "idk why i love you, maybe because of your personality? you're sweet, and kind. everything about you is perfect and i love you sooooo much ",
+    "idk why i love you, but i do know that i love you and that's what I feel. my love for you keeps growing each day and i won't get tired of loving you. loving you is the best decision i made. I'll choose you everyday.",
+    "I LOVE YOUUUUUU SO MUCH"
+];
+
+const colors = ["#E57373", "#BA68C8", "#64B5F6", "#81C784", "#FFD54F", "#4DB6AC", "#FF8A65", "#A1887F", "#90A4AE", "#D4E157"];
+
+function showMessage() {
+    const messageBox = document.getElementById('responseMessage');
+    messageBox.innerHTML = ''; // Clear previous messages
+    messageBox.style.visibility = 'visible';
+    let complimentIndex = 0;
+
+    function typeCompliment(i) {
+        if (i < compliments.length) {
+            let pos = 0;
+            const text = compliments[i];
+            const p = document.createElement('p');
+            p.className = 'compliment';
+            p.style.color = colors[i]; // Set the color for each compliment
+            messageBox.appendChild(p);
+
+            const interval = setInterval(() => {
+                if (pos < text.length) {
+                    p.textContent += text.charAt(pos);
+                    pos++;
+                } else {
+                    clearInterval(interval);
+                    typeCompliment(i + 1); // Type the next compliment
+                }
+            }, 50); // Adjust for typing speed
+        }
+    }
+
+    typeCompliment(complimentIndex);
+}
+
+function moveButton() {
+    var noButton = document.getElementById('noButton');
+    noButton.style.position = 'relative';
+    let moved = 0;
+    const interval = setInterval(() => {
+        if (moved < 500) { // Increase distance to ensure it moves far enough
+            noButton.style.left = `${moved}px`;
+            moved += 10; // Increase step size for a faster movement
+        } else {
+            clearInterval(interval);
+        }
+    }, 20); // Speed up the movement
+}
+</script>
+</body>
+</html>
